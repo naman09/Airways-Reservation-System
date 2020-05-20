@@ -1,0 +1,173 @@
+ Database Airways
+
+ create table Airport
+    (Code int(10) unsigned auto_increment primary key,
+    	Country varchar(20) not null,
+    	City varchar(20) not null
+    );
+	create table Flight
+         (Dep_time datetime,
+         F_no int(10) unsigned auto_increment primary key,
+         Arr_time datetime,
+         Class varchar(15) not null,
+     	 Start varchar(20) not null,
+     	 End varchar(20) not null,
+     	 foreign key(Start) references Airport(City) on delete cascade,
+     	 foreign key(End) references Airport(City) on delete cascade
+       );
+	create table Passenger(
+		 P_id int(10) unsigned auto_increment primary key,
+		 Name varchar(30) not null,
+		 dob date not null
+		 );
+	create table Fare(
+    	 flightNum int(10),
+    	 Fare int(5) unsigned not null,
+    	 foreign key(flightNum) references Flight(F_no) on delete cascade
+		 );
+	create table Booking(
+    	 Pass_id int(10),
+    	 Flight_no int(10),
+    	 Clock datetime,
+    	 foreign key(Pass_id) references Passenger(P_id) on delete cascade,
+    	 foreign key(Flight_no) references Flight(F_no) on delete cascade
+        );	
+
+    create table Admin(
+        A_id int(10) unsigned auto_increment primary key,
+        Username varchar(20) not null,
+        password varchar(20) not null
+        );
+Passenger
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| P_id  | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| Name  | varchar(29)      | NO   |     | NULL    |                |
+| dob   | date             | YES  |     | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
+
+Contacts
++---------+---------+------+-----+---------+-------+
+| Field   | Type    | Null | Key | Default | Extra |
++---------+---------+------+-----+---------+-------+
+| pid     | int(10) | NO   | PRI | NULL    |       |
+| contact | int(10) | NO   | PRI | NULL    |       |
++---------+---------+------+-----+---------+-------+
+
+Flight
++----------+------------------+------+-----+---------+----------------+
+| Field    | Type             | Null | Key | Default | Extra          |
++----------+------------------+------+-----+---------+----------------+
+| Dep_time | datetime         | YES  |     | NULL    |                |
+| F_no     | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| Arr_time | datetime         | YES  |     | NULL    |                |
+| Class    | varchar(15)      | NO   |     | NULL    |                |
+| Start    | varchar(20)      | NO   | MUL | NULL    |                |
+| End      | varchar(20)      | NO   | MUL | NULL    |                |
++----------+------------------+------+-----+---------+----------------+
+
+Airport
++---------+------------------+------+-----+---------+----------------+
+| Field   | Type             | Null | Key | Default | Extra          |
++---------+------------------+------+-----+---------+----------------+
+| Code    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| Country | varchar(20)      | NO   |     | NULL    |                |
+| City    | varchar(20)      | NO   |     | NULL    |                |
++---------+------------------+------+-----+---------+----------------+
+
+Booking
++-----------+----------+------+-----+---------+-------+
+| Field     | Type     | Null | Key | Default | Extra |
++-----------+----------+------+-----+---------+-------+
+| Pass_id   | int(10)  | YES  | MUL | NULL    |       |
+| Flight_no | int(10)  | YES  | MUL | NULL    |       |
+| Clock     | datetime | YES  |     | NULL    |       |
++-----------+----------+------+-----+---------+-------+
+
++------------+-----------------+------+-----+---------+-------+
+| Field      | Type            | Null | Key | Default | Extra |
++------------+-----------------+------+-----+---------+-------+
+| FlightNum  | int(10)         | YES  | MUL | NULL    |       |
+| Class      | varchar(15)     | YES  |     | NULL    |       |
+| FareAmount | int(5) unsigned | NO   |     | NULL    |       |
++------------+-----------------+------+-----+---------+-------+
+
++----------+------------------+------+-----+---------+----------------+
+| Field    | Type             | Null | Key | Default | Extra          |
++----------+------------------+------+-----+---------+----------------+
+| A_id     | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| username | varchar(20)      | NO   |     | NULL    |                |
+| password | varchar(20)      | NO   |     | NULL    |                |
++----------+------------------+------+-----+---------+----------------+
+
+
+
+insert into Airport
+values(11430,'United States','New York');
+
+insert into Airport
+values(2828601,'Japan','Tokyo');
+
+insert into Airport
+values(110037,'India','New Delhi');
+
+
+insert into flight(start,end,arr_time,dep_time)
+values('Tokyo','New Delhi','2018-11-16 05:30:00','2018-11-16 11:15:00');
+
+insert into flight(start,end,arr_time,dep_time)
+values('Tokyo','New York','2018-09-11 02:30:00','2018-09-11 10:40:00');
+
+insert into flight(start,end,arr_time,dep_time)
+values('New Delhi','New York','2018-09-11 10:50:00','2018-09-11 15:20:00');
+
+insert into flight(start,end,arr_time,dep_time)
+values('New York','Tokyo','2018-11-23 07:30:00','2018-11-23 12:40:00');
+
+insert into flight(start,end,arr_time,dep_time)
+values('New Delhi','Tokyo','2018-11-17 11:50:00','2018-11-17 14:45:00');
+
+insert into flight(start,end,arr_time,dep_time)
+values('New York','New Delhi','2018-11-23 07:30:00','2018-11-23 12:40:00');
+
+
+
+
+
+
+insert into fare
+values(1,'Business','900');
+
+insert into fare
+values(1,'Economy','840');
+
+insert into fare
+values(2,'Business','915');
+
+insert into fare
+values(2,'Economy','885');
+
+insert into fare
+values(3,'Business','897');
+
+insert into fare
+values(3,'Economy','875');
+
+insert into fare
+values(4,'Business','950');
+
+insert into fare
+values(4,'Economy','900');
+
+insert into fare
+values(5,'Business','925');
+
+insert into fare
+values(5,'Economy','908');
+
+insert into fare
+values(6,'Business','898');
+
+insert into fare
+values(6,'Economy','850');
